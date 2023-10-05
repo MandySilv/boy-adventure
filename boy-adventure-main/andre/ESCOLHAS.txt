@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha Sim ou Não</title>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>Aperte a tecla minuscula " a " para abrir o modal.
+    <div id="modal" class="modal">
+        <p>Você gostaria de ir para New York?</p>
+        <button id="simButton">Sim</button>
+        <button id="naoButton">Não</button>
+    </div>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const simButton = document.getElementById('simButton');
+        const naoButton = document.getElementById('naoButton');
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'a') {
+                modal.style.display = 'block';
+            }
+        });
+
+        simButton.addEventListener('click', () => {
+            // Redireciona para um link interno da página
+            window.location.href = 'newyork.html';
+            modal.style.display = 'none'; // Fecha a janela modal
+        });
+
+        naoButton.addEventListener('click', () => {
+            // Redireciona para outra página
+	    alert('Fechando o modal!');
+            modal.style.display = 'none'; // Fecha a janela modal
+        });
+    </script>
+
+    <div id="paginaInterna" style="display: none;">
+        <!-- Conteúdo da página interna -->
+        <p>Você escolheu "Sim" e está na página interna.</p>
+    </div>
+</body>
+</html>

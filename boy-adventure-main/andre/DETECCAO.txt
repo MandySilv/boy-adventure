@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Detecção de Colisão</title>
+</head>
+<body>
+  <div class="personagem" id="personagem"></div>
+  <div class="inimigo" id="inimigo"></div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.personagem, .inimigo {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+}
+
+.personagem {
+  background-color: blue;
+}
+
+.inimigo {
+  background-color: red;
+  left: 200px;
+  top: 200px;
+}
+
+const personagem = document.getElementById('personagem');
+const inimigo = document.getElementById('inimigo');
+
+function checkCollision() {
+  const personagemRect = personagem.getBoundingClientRect();
+  const inimigoRect = inimigo.getBoundingClientRect();
+
+  if (
+    personagemRect.left < inimigoRect.right &&
+    personagemRect.right > inimigoRect.left &&
+    personagemRect.top < inimigoRect.bottom &&
+    personagemRect.bottom > inimigoRect.top
+  ) {
+    personagem.remove();
+  }
+}
+
+document.addEventListener('keydown', (event) => {
+  switch (event.key) {
+    case 'ArrowUp':
+      personagem.style.top = (parseInt(personagem.style.top) || 0) - 10 + 'px';
+      break;
+    case 'ArrowDown':
+      personagem.style.top = (parseInt(personagem.style.top) || 0) + 10 + 'px';
+      break;
+    case 'ArrowLeft':
+      personagem.style.left = (parseInt(personagem.style.left) || 0) - 10 + 'px';
+      break;
+    case 'ArrowRight':
+      personagem.style.left = (parseInt(personagem.style.left) || 0) + 10 + 'px';
+      break;
+  }
+
+});
+
+function checkTiroInimigo(){
+    const tiro = document.getElementById('tiro'); // Mova esta linha para dentro da função
+    if (!tiro) return; // Se o tiro não existir, retorne e não faça nada
+
+    const tiroRect = tiro.getBoundingClientRect();
+    const inimigoRect = inimigo.getBoundingClientRect();
+
+    if (
+        tiroRect.left < inimigoRect.right &&
+        tiroRect.right > inimigoRect.left &&
+        tiroRect.top < inimigoRect.bottom &&
+        tiroRect.bottom > inimigoRect.top
+    ) {
+        inimigo.remove();
+    }
+}
+
+function checarColisoes(){
+	checkCollision();//Colisao entre inimigo e personagem
+	checkTiroInimigo();
+}
+
+setInterval(checarColisoes,50);

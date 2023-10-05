@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Game de Bloquinhos</title>
+</head>
+<body>
+    <div id="personagem"></div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#personagem{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    background-color: red;
+}
+
+#personagem {
+    background-color: blue;
+}
+
+.tiro {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: yellow;
+}
+
+
+
+
+
+
+const personagem = document.getElementById('personagem');
+
+let posicaoHorizontal = 0;
+let posicaoVertical = 0;
+const step = 10;
+
+//ATIRAR ====== INICIO
+function atirar() {
+    const tiro = document.createElement('div');
+    tiro.classList.add('tiro');
+    tiro.id = 'tiro'; 
+    document.body.appendChild(tiro);
+  
+    const personagemRect = personagem.getBoundingClientRect();
+    tiro.style.left = (personagemRect.left + personagemRect.width / 2) + 'px';
+    tiro.style.top = (personagemRect.top + personagemRect.height / 2) + 'px';
+  
+    const tiroInterval = setInterval(() => {
+      const tiroRect = tiro.getBoundingClientRect();
+      if (tiroRect.right < window.innerWidth) {
+        tiro.style.left = (parseInt(tiro.style.left) || 0) + 5 + 'px';
+      } else {
+        clearInterval(tiroInterval);
+        document.body.removeChild(tiro);
+      }
+    }, 10);
+  }
+//ATIRAR ====== FIM
+
+function updatePersonagemPosition() {
+  personagem.style.left = posicaoHorizontal + 'px';
+  personagem.style.top = posicaoVertical + 'px';
+}
+
+document.addEventListener('keydown', (event) => {
+  switch (event.key) {
+    case 'ArrowUp':
+      posicaoVertical -= step;
+      break;
+    case 'ArrowDown':
+      posicaoVertical += step;
+      break;
+    case 'ArrowLeft':
+      posicaoHorizontal -= step;
+      break;
+    case 'ArrowRight':
+      posicaoHorizontal += step;
+      break;
+    case ' ':
+      atirar();
+      break;
+  }
+
+  updatePersonagemPosition();
+});
+

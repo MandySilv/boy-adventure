@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Vidas</title>
+</head>
+<body>
+  <div class="vidas" id="vidas">Vidas: <span id="vidaCount">3</span></div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+.vidas {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: Arial, sans-serif;
+}
+
+const vidaCountElement = document.getElementById('vidaCount');
+
+let vidaCount = 3;
+
+function updateVidaCount() {
+  vidaCountElement.textContent = vidaCount;
+}
+
+function addVida() {
+  vidaCount++;
+  updateVidaCount();
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.shiftKey) {
+    addVida();
+  }
+  
+
+});

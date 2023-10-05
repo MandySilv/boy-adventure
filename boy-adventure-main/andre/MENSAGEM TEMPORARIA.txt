@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Mensagem Temporária</title>
+</head>
+<body>
+  <div id="message" class="hidden">Mensagem Temporária</div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+body {
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+#message {
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  display: none;
+}
+
+
+var messageElement = document.getElementById('message');
+
+function mostrarMensagem(mensagem, duracao) {
+  messageElement.textContent = mensagem;
+  messageElement.style.display = 'block';
+  setTimeout(function() {
+    messageElement.style.display = 'none';
+  }, duracao);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  mostrarMensagem('Esta é uma mensagem temporária.', 3000); // Mensagem por 3 segundos
+});
